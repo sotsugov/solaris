@@ -18,3 +18,12 @@ Then, run the development server(python dependencies will be installed automatic
 ```bash
 pnpm dev
 ```
+
+Testing backend
+
+```bash
+# Add the project root to PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:$(pwd)
+
+pytest api/tests/test_credit_calculation.py
+```
