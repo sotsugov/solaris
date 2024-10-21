@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import { UsageReport } from './usage';
 
 export async function getUsageReports(): Promise<UsageReport[]> {
-  // const res = await fetch(`${process.env.API_URL}/api/usage`);
-  const res = await fetch(`http://localhost:3000/api/usage`);
+  const res = await fetch(`${process.env.API_URL}/api/usage`);
 
   if (!res.ok) {
     // Render the closest `error.js` Error Boundary
