@@ -3,25 +3,25 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: '/api/py/:path*',
+        source: '/api/:path*',
         destination:
           process.env.NODE_ENV === 'development'
-            ? `${process.env.FAST_API_URL}/api/py/:path*`
+            ? 'http://localhost:8000/api/:path*'
             : '/api/',
       },
       {
         source: '/docs',
         destination:
           process.env.NODE_ENV === 'development'
-            ? `${process.env.FAST_API_URL}/api/py/docs`
-            : '/api/py/docs',
+            ? 'http://localhost:8000/api/docs'
+            : '/api/docs',
       },
       {
         source: '/openapi.json',
         destination:
           process.env.NODE_ENV === 'development'
-            ? `${process.env.FAST_API_URL}/api/py/openapi.json`
-            : '/api/py/openapi.json',
+            ? 'http://localhost:8000/api/openapi.json'
+            : '/api/openapi.json',
       },
     ];
   },
