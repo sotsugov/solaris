@@ -6,21 +6,21 @@ const nextConfig = {
         source: '/api/:path*',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/api/:path*'
+            ? `${process.env.FAST_API_URL}/api/:path*`
             : '/api/',
       },
       {
         source: '/docs',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/api/docs'
+            ? `${process.env.FAST_API_URL}/api/docs`
             : '/api/docs',
       },
       {
         source: '/openapi.json',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/api/openapi.json'
+            ? `${process.env.FAST_API_URL}/api/openapi.json`
             : '/api/openapi.json',
       },
     ];
