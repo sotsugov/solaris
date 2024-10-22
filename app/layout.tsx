@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import { Instrument_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const fontSans = Instrument_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: '400',
+const fontSans = localFont({
+  src: './fonts/GeistVF.woff',
   variable: '--font-sans',
+  weight: '100 900',
 });
 
 export const metadata: Metadata = {

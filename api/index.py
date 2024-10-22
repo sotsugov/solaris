@@ -10,10 +10,10 @@ from api.utils.credits import calculate_credits
 BASE_URL = "https://owpublic.blob.core.windows.net/tech-task"
 
 # Create FastAPI instance with custom docs and openapi url
-app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
+app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
 
 
-@app.get("/api/messages/current-period", response_model=Messages)
+@app.get("/api/py/messages/current-period", response_model=Messages)
 async def get_current_period_messages():
     async with httpx.AsyncClient() as client:
         response = await client.get(f"{BASE_URL}/messages/current-period")
@@ -25,7 +25,7 @@ async def get_current_period_messages():
     return Messages(messages=messages)
 
 
-@app.get("/api/reports/{report_id}", response_model=Report)
+@app.get("/api/py/reports/{report_id}", response_model=Report)
 async def get_report(report_id: int):
     async with httpx.AsyncClient() as client:
         response = await client.get(f"{BASE_URL}/reports/{report_id}")
@@ -36,7 +36,7 @@ async def get_report(report_id: int):
         return Report(**data)
 
 
-@app.get("/api/usage", response_model=UsageResponse)
+@app.get("/api/py/usage", response_model=UsageResponse)
 async def get_usage():
     messages = (await get_current_period_messages()).messages
     usage = []
