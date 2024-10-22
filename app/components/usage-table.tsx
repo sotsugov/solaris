@@ -21,20 +21,17 @@ export default function UsageTable({
 }: {
   initialReports: UsageReport[] | null;
 }) {
-  const [usage] = useState<UsageReport[]>(
-    Array.isArray(initialReports) ? initialReports : [],
-  );
   const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
 
   const loadMore = () => {
     setDisplayCount((prevCount) => prevCount + ITEMS_PER_PAGE);
   };
 
-  if (usage === null) {
+  if (initialReports === null) {
     return <div>Loading usage data...</div>;
   }
 
-  if (!Array.isArray(usage) || usage.length === 0) {
+  if (!Array.isArray(initialReports) || initialReports.length === 0) {
     return <div>No usage data available.</div>;
   }
 
@@ -51,7 +48,7 @@ export default function UsageTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {usage.slice(0, displayCount).map((report) => (
+          {initialReports.slice(0, displayCount).map((report) => (
             <TableRow key={report.message_id}>
               <TableCell className="font-medium">{report.message_id}</TableCell>
               <TableCell>{formatTimestamp(report.timestamp)}</TableCell>
@@ -65,11 +62,13 @@ export default function UsageTable({
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total reports</TableCell>
-            <TableCell className="text-right">{usage.length}</TableCell>
+            <TableCell className="text-right">
+              {initialReports.length}
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
-      {displayCount < usage.length && (
+      {displayCount < initialReports.length && (
         <div className="mt-4 text-center">
           <Button onClick={loadMore}>Load More</Button>
         </div>
