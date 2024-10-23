@@ -26,6 +26,16 @@ The API usage dashboard - a Next.js application for visualising API usage metric
 
 ## Getting Started
 
+Make sure the environment has correct variables defined:
+```bash
+# base data url
+DATA_URL=...
+
+# backend api url for development
+FAST_API_URL="http://localhost:8000/"
+API_URL="http://localhost:3000/"
+```
+
 First, create and activate a virtual environment:
 ```bash
 python3 -m venv venv

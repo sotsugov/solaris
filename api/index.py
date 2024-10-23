@@ -1,4 +1,5 @@
 import httpx
+import os
 from fastapi import FastAPI, HTTPException
 from api.models.message import Message, Messages
 from api.models.report import Report
@@ -6,8 +7,7 @@ from api.models.usage import UsageItem, UsageResponse
 from api.utils.credits import calculate_credits
 
 
-# This should be moved to the env variable instead
-BASE_URL = "https://owpublic.blob.core.windows.net/tech-task"
+BASE_URL = os.environ.get("DATA_URL")
 
 # Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
