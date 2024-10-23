@@ -109,11 +109,11 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
           >
             Report Name
             {column.getIsSorted() === 'asc' ? (
-              <ArrowUp className="ml-2 h-4 w-4" />
+              <ArrowUp className="ml-2 size-4" />
             ) : column.getIsSorted() === 'desc' ? (
-              <ArrowDown className="ml-2 h-4 w-4" />
+              <ArrowDown className="ml-2 size-4" />
             ) : (
-              <ArrowUpDown className="ml-2 h-4 w-4" />
+              <ArrowUpDown className="ml-2 size-4" />
             )}
           </Button>
         );
@@ -126,15 +126,16 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
         return (
           <Button
             variant="ghost"
+            className="float-right"
             onClick={() => handleSort('credits_used', column.getIsSorted())}
           >
             Credits Used
             {column.getIsSorted() === 'asc' ? (
-              <ArrowUp className="ml-2 h-4 w-4" />
+              <ArrowUp className="ml-2 size-4" />
             ) : column.getIsSorted() === 'desc' ? (
-              <ArrowDown className="ml-2 h-4 w-4" />
+              <ArrowDown className="ml-2 size-4" />
             ) : (
-              <ArrowUpDown className="ml-2 h-4 w-4" />
+              <ArrowUpDown className="ml-2 size-4" />
             )}
           </Button>
         );
@@ -162,7 +163,7 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
 
   return (
     <div className="w-full">
-      <Table>
+      <Table className="w-full">
         <TableCaption>A list of recent usage reports</TableCaption>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

@@ -97,91 +97,93 @@ export default function CreditBarChart({ reports }: CreditBarChartProps) {
   if (!mounted) return null;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Daily Credit Usage</CardTitle>
-        <CardDescription>
-          {chartData.length > 0 && (
-            <>
-              {new Date(chartData[0].date).toLocaleDateString(undefined, {
-                month: 'long',
-                day: 'numeric',
-              })}{' '}
-              -{' '}
-              {new Date(
-                chartData[chartData.length - 1].date,
-              ).toLocaleDateString(undefined, {
-                month: 'long',
-                day: 'numeric',
-              })}
-            </>
-          )}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[200px] w-full">
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            width={550}
-            height={200}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) =>
-                new Date(value).toLocaleDateString(undefined, {
-                  month: 'short',
+    <div className="w-full">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>Daily Credit Usage</CardTitle>
+          <CardDescription>
+            {chartData.length > 0 && (
+              <>
+                {new Date(chartData[0].date).toLocaleDateString(undefined, {
+                  month: 'long',
                   day: 'numeric',
-                })
-              }
-            />
-            <YAxis
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.toFixed(0)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  indicator="dashed"
-                  formatter={(value) => `${Number(value).toFixed(2)} credits`}
-                />
-              }
-            />
-            <Bar
-              dataKey="credits"
-              fill="hsl(var(--chart-1))"
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          {trend.percentage > 0 ? (
-            <>
-              {trend.isUp ? 'Trending up' : 'Trending down'} by{' '}
-              {trend.percentage.toFixed(1)}% from previous day{' '}
-              {trend.isUp ? (
-                <TrendingUp className="h-4 w-4" />
-              ) : (
-                <TrendingDown className="h-4 w-4" />
-              )}
-            </>
-          ) : (
-            'No change from previous day'
-          )}
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total credits used per day
-        </div>
-      </CardFooter>
-    </Card>
+                })}{' '}
+                -{' '}
+                {new Date(
+                  chartData[chartData.length - 1].date,
+                ).toLocaleDateString(undefined, {
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </>
+            )}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="h-[220px] w-full">
+          <ChartContainer config={chartConfig}>
+            <BarChart
+              width={600}
+              height={200}
+              accessibilityLayer
+              data={chartData}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) =>
+                  new Date(value).toLocaleDateString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                  })
+                }
+              />
+              <YAxis
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.toFixed(0)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    indicator="dashed"
+                    formatter={(value) => `${Number(value).toFixed(2)} credits`}
+                  />
+                }
+              />
+              <Bar
+                dataKey="credits"
+                fill="hsl(var(--chart-1))"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="flex gap-2 font-medium leading-none">
+            {trend.percentage > 0 ? (
+              <>
+                {trend.isUp ? 'Trending up' : 'Trending down'} by{' '}
+                {trend.percentage.toFixed(1)}% from previous day{' '}
+                {trend.isUp ? (
+                  <TrendingUp className="h-4 w-4" />
+                ) : (
+                  <TrendingDown className="h-4 w-4" />
+                )}
+              </>
+            ) : (
+              'No change from previous day'
+            )}
+          </div>
+          <div className="leading-none text-muted-foreground">
+            Showing total credits used per day
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

@@ -10,15 +10,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function TableSkeleton() {
   const columns = [
-    { key: 'message_id', className: 'w-[25%]' },
-    { key: 'timestamp', className: 'w-[25%]' },
-    { key: 'report_name', className: 'w-[25%]' },
-    { key: 'credits_used', className: 'w-[25%] text-right' },
+    { key: 'message_id', className: 'w-[15%]' },
+    { key: 'timestamp', className: 'w-[15%]' },
+    { key: 'report_name', className: 'w-[40%]' },
+    { key: 'credits_used', className: 'w-[30%]' },
   ];
 
   return (
     <div className="w-full">
-      <Table>
+      <Table className="w-full">
         <TableHeader>
           <TableRow>
             <TableHead>Message ID</TableHead>
@@ -28,11 +28,11 @@ export function TableSkeleton() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[...Array(10)].map((_, rowIndex) => (
+          {[...Array(8)].map((_, rowIndex) => (
             <TableRow key={rowIndex}>
               {columns.map((column, colIndex) => (
                 <TableCell key={colIndex} className={column.className}>
-                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 p-2 w-full" />
                 </TableCell>
               ))}
             </TableRow>
