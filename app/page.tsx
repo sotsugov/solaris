@@ -1,10 +1,10 @@
-import { SiteHeader } from './components/header';
-import { UsageTable } from './components/usage-table';
-import CreditBarChart from './components/usage-chart';
+import { SiteHeader } from '../components/header';
+import { UsageTable } from '../components/usage-table';
+import CreditBarChart from '../components/usage-chart';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import getUsageReports from './api/getUsageReports';
-import { TableSkeleton } from './components/table-skeleton';
+import { TableSkeleton } from '../components/table-skeleton';
 
 async function ChartSection() {
   const reports = await getUsageReports();

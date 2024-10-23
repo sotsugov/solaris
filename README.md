@@ -52,16 +52,22 @@ Then, run the development server (python dependencies will be installed automati
 pnpm dev
 ```
 
-Testing backend:
+Testing backend with pytest:
 ```bash
 # Add the project root to PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$(pwd)
-pytest api/tests/test_credit_calculation.py
+pnpm test:be
 ```
+
+Testing frontend with jest:
+```bash
+pnpm test:fe
+```
+
 ## Not in Scope
 
 ### Testing
-- Frontend component and other types of testing
+- Extended frontend component and other types of testing
 - While some of the app is accessible, the app was not optimised a18y standards
 
 ## License
