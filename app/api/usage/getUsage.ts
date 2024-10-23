@@ -1,9 +1,13 @@
 import 'server-only';
 import { notFound } from 'next/navigation';
-import { UsageReport } from './usage';
+import { UsageReport } from '../../../types/usage';
 
 export async function getUsageReports(): Promise<UsageReport[]> {
-  const res = await fetch(`${process.env.API_URL}/api/usage`);
+  const res = await fetch(`${process.env.API_URL}/api/usage`, {
+    next: {
+      revalidate: 60,
+    },
+  });
 
   if (!res.ok) {
     // Render the closest `error.js` Error Boundary

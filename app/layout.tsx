@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { ThemeProvider } from 'next-themes';
 import './globals.css';
 
 const fontSans = localFont({
@@ -10,17 +11,24 @@ const fontSans = localFont({
 
 export const metadata: Metadata = {
   title: 'Solaris',
-  description: '',
+  description: 'Reading data and calculating cost',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body className={`${fontSans.variable} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={`${fontSans.variable} min-h-screen bg-background antialiased`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
