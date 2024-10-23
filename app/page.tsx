@@ -4,8 +4,6 @@ import { UsageTable } from './components/usage-table';
 import { TableSkeleton } from './components/usage-table-skeleton';
 import { UsageReport } from '../types/usage';
 
-// export const dynamic = 'force-dynamic';
-
 async function getUsageReports(): Promise<UsageReport[] | null> {
   try {
     const res = await fetch(`${process.env.API_URL}/api/usage`, {

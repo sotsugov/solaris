@@ -21,8 +21,9 @@ import {
   TableCaption,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { formatTimestamp } from '@/lib/utils';
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface UsageReport {
   message_id: number;
@@ -32,8 +33,59 @@ interface UsageReport {
 }
 
 export function UsageTable({ reports }: { reports: UsageReport[] }) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
+  // Initialize sorting state from URL parameters
+  const initializeSortingState = (): SortingState => {
+    const sortParams = searchParams.getAll('sort');
+    return sortParams.map((param) => {
+      const [id, direction] = param.split(':');
+      return {
+        id,
+        desc: direction === 'desc',
+      };
+    });
+  };
+
+  const [sorting, setSorting] = React.useState<SortingState>(
+    initializeSortingState(),
+  );
+
+  // Update URL when sorting changes
+  const updateURL = (newSorting: SortingState) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Remove all existing sort parameters
+    const existingParams = Array.from(params.keys());
+    existingParams.forEach((key) => {
+      if (key === 'sort') params.delete(key);
+    });
+
+    // Add new sort parameters
+    newSorting.forEach((sort) => {
+      params.append('sort', `${sort.id}:${sort.desc ? 'desc' : 'asc'}`);
+    });
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleSort = (columnId: string, currentSortDir: string | false) => {
+    let newSorting: SortingState;
+
+    if (!currentSortDir) {
+      newSorting = [...sorting, { id: columnId, desc: false }];
+    } else if (currentSortDir === 'asc') {
+      newSorting = sorting.map((sort) =>
+        sort.id === columnId ? { ...sort, desc: true } : sort,
+      );
+    } else {
+      newSorting = sorting.filter((sort) => sort.id !== columnId);
+    }
+
+    setSorting(newSorting);
+    updateURL(newSorting);
+  };
   const columns: ColumnDef<UsageReport>[] = [
     {
       accessorKey: 'message_id',
@@ -53,19 +105,20 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="hover:bg-transparent"
+            onClick={() => handleSort('report_name', column.getIsSorted())}
           >
             Report Name
             {column.getIsSorted() === 'asc' ? (
-              <ChevronUpIcon className="ml-2 h-4 w-4" />
+              <ArrowUp className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === 'desc' ? (
-              <ChevronDownIcon className="ml-2 h-4 w-4" />
-            ) : null}
+              <ArrowDown className="ml-2 h-4 w-4" />
+            ) : (
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            )}
           </Button>
         );
       },
-      cell: ({ row }) => <div>{row.getValue('report_name') || '-'}</div>,
+      cell: ({ row }) => <div>{row.getValue('report_name') || ''}</div>,
     },
     {
       accessorKey: 'credits_used',
@@ -73,15 +126,16 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className="hover:bg-transparent"
+            onClick={() => handleSort('credits_used', column.getIsSorted())}
           >
             Credits Used
             {column.getIsSorted() === 'asc' ? (
-              <ChevronUpIcon className="ml-2 h-4 w-4" />
+              <ArrowUp className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === 'desc' ? (
-              <ChevronDownIcon className="ml-2 h-4 w-4" />
-            ) : null}
+              <ArrowDown className="ml-2 h-4 w-4" />
+            ) : (
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            )}
           </Button>
         );
       },
@@ -102,6 +156,8 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
     state: {
       sorting,
     },
+    // Enable multi-sort for sorting both columns
+    enableMultiSort: true,
   });
 
   return (

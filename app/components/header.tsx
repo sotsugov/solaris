@@ -1,16 +1,17 @@
+import Link from 'next/link';
 import { ModeToggle } from './theme-toggle';
 
 export function SiteHeader() {
   return (
-    <header className="w-full max-w-3xl px-16">
+    <header className="w-full max-w-3xl px-14">
       <div className="flex items-center justify-between">
-        <a
+        <Link
           href="/"
           rel="noreferrer"
-          className="font-medium text-lg uppercase underline underline-offset-4"
+          className="font-[375] tracking-tight text-[1.75em] uppercase"
         >
           solaris
-        </a>
+        </Link>
         <ModeToggle />
       </div>
     </header>
