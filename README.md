@@ -58,14 +58,6 @@ Testing backend:
 export PYTHONPATH=$PYTHONPATH:$(pwd)
 pytest api/tests/test_credit_calculation.py
 ```
-
-## Features
-- Real-time API usage monitoring
-- Credit consumption visualization
-- Sortable and filterable data tables
-- Daily usage trends analysis
-- Responsive design for all screen sizes
-
 ## Not in Scope
 
 ### Testing
