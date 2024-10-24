@@ -86,6 +86,7 @@ export function UsageTable({ reports }: { reports: UsageReport[] }) {
     setSorting(newSorting);
     updateURL(newSorting);
   };
+
   const columns: ColumnDef<UsageReport>[] = [
     {
       accessorKey: 'message_id',
